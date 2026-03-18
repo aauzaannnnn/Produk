@@ -16,14 +16,14 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 // tambahan
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\FileUpload; //untuk tipe file
+
 
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\ImageColumn;
+
 
 class ProdukResource extends Resource
 {
-    protected static ?string $model = produk::class;
+    protected static ?string $model = Produk::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -33,7 +33,7 @@ class ProdukResource extends Resource
                   ->schema([
                 //
                 TextInput::make('kode_produk')
-                    ->default(fn () => produk::getKodeproduk()) // Ambil default dari method getKodeBarang
+                    ->default(fn () => Produk::getKodeproduk()) // Ambil default dari method getKodeBarang
                     ->label('Kode produk')
                     ->required()
                     ->readonly() // Membuat field menjadi read-only
@@ -57,6 +57,7 @@ class ProdukResource extends Resource
                     ->required()
                     ->placeholder('Masukkan stok produk') // Placeholder untuk membantu pengguna
                     ->minValue(0),
+                    
             ]);
     }
 
@@ -65,21 +66,21 @@ class ProdukResource extends Resource
         return $table
             ->columns([
                 //
-                TextColumn::make('kode_barang')
+                TextColumn::make('kode_produk')
                     ->searchable(),
                 // agar bisa di search
-                TextColumn::make('nama_barang')
+                TextColumn::make('nama_produk')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('harga_barang')
-                    ->label('Harga Barang')
+                TextColumn::make('harga_produk')
+                    ->label('Harga produk')
                     ->formatStateUsing(fn (string|int|null $state): string => rupiah($state))
                     ->extraAttributes(['class' => 'text-right']) // Tambahkan kelas CSS untuk rata kanan
                     ->sortable()
                 ,
-                ImageColumn::make('foto'),
+
                 TextColumn::make('stok'),
-                TextColumn::make('rating'),
+                
             ])
             ->filters([
                 //

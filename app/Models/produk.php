@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 // tambahan
 use Illuminate\Support\Facades\DB;
 
-class produk extends Model
+class Produk extends Model
 {
     use HasFactory;
     // karena kita merubah tabelnya dari coas menjadi coa
